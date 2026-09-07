@@ -1,0 +1,24 @@
+{
+  "schema_version": "2.4",
+  "investigation": "<slug>",
+  "questions": [
+    {
+      "question_id": "RQ-01",
+      "question": "<单一研究问题>",
+      "research_type": "descriptive",
+      "claim_ids": ["C-01"],
+      "outcome_variable": "<因变量；非因果也须写明观察对象>",
+      "exposure_variable": "<自变量；非因果可为空>",
+      "unit_of_analysis": "<个体/地区/月度/企业等>",
+      "time_granularity": "<日/月/季度/截面>",
+      "population": "<目标总体>",
+      "required_data": ["<最低所需数据>"],
+      "acceptable_proxies": [],
+      "unacceptable_substitutes": ["背景文章不能替代直接测量"],
+      "confounders": [],
+      "identification_strategy": "<描述统计/比较/事件研究/面板等>",
+      "feasible": true,
+      "fallback_type": "none"
+    }
+  ]
+}

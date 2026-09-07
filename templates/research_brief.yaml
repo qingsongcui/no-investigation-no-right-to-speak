@@ -1,0 +1,37 @@
+# audited 兼容模板（v2.4 数据契约；v3 默认请用 research.json）
+# 由总调查官在阶段一（立案）创建并维护
+
+slug: ""                      # 调查标识，如 us-cn-investable-2026
+created_at: ""                # YYYY-MM-DD
+workflow_version: "2.4"
+state: BRIEFED                # BRIEFED | DESIGNED | COLLECTING | GAP_REVIEW | EVIDENCE_GATED | IDENTIFICATION_GATED | SYNTHESIZED | DELIVERED | MIGRATION_REQUIRED
+outcome_status: ""            # COMPLETE_DESCRIPTIVE | COMPLETE_MECHANISTIC | COMPLETE_CAUSAL | PARTIAL_WITH_BOUNDED_CLAIMS | DATA_ACCESS_REQUIRED | GAP_REPORT
+
+question_raw: ""              # 用户原问题（逐字，不修饰）
+question_neutral: ""          # 中性重构后的问题
+question_type: ""             # factual | causal | predictive | decision | strategic
+decision_context: ""          # 用户要据此做什么决定？影响越大，调查义务越重
+stakes: ""                    # low | medium | high
+depth: ""                     # quick | standard | deep（由 stakes × 主张数决定）
+report_mode: "auto"           # auto（智能自适应，默认：按解释需要安排篇幅，不强制机构研报） | brief | detailed | both
+domain_pack: ""               # 可选：domain-packs/ 下的领域包
+
+scope:
+  time_range: ""              # 如 2024-01-01 至 2026-08-14
+  geography: ""
+  entities: []                # 公司/产品/人物/政策
+  concept_definitions: {}     # 关键词精确定义（口径）
+
+claims:                       # 原子主张清单（门禁与台账引用此表；文本不得含竖线 |）
+  - claim_id: "C-01"
+    claim: ""                 # 一句话主张，可证伪；审计授权逐字核对；不要求进入正文对照表
+    claim_type: ""            # factual | causal | predictive | trend | strategic | normative
+    is_critical: true
+    falsification: ""         # 事实类：什么证据推翻结果；前瞻/预测/策略类：什么信号证伪推导前提或触发止损
+
+priors:                       # 作者先验登记（避免只找支持自己的证据）
+  - belief: ""
+    falsification_signal: ""
+
+budget:                       # 补查预算（可选约束）
+  max_search_rounds: 3

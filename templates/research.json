@@ -1,0 +1,29 @@
+{
+  "workflow_version": "3.0",
+  "mode": "answer",
+  "purpose": "live",
+  "stakes": "medium",
+  "causal": false,
+  "author_id": "<实际作者标识>",
+  "question": "<用户原问题>",
+  "scope": "",
+  "constraints": [],
+  "questions": [
+    {
+      "id": "Q1",
+      "text": "<用户原问题>",
+      "answer": "",
+      "status": "open",
+      "finding_ids": [],
+      "report_excerpt": ""
+    }
+  ],
+  "sources": [],
+  "findings": [],
+  "gaps": [],
+  "searches": [],
+  "stop": {
+    "reason": "",
+    "explanation": ""
+  }
+}

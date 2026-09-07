@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Synthesis v1.0 — 合成推演（证据→因果→推演→敢下注）",
+  "type": "object",
+  "required": ["schema_version", "investigation", "created_at", "causal_chains", "evidence_graph", "assumptions", "inference_steps"],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "investigation": { "type": "string", "minLength": 1, "description": "investigation slug" },
+    "created_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "causal_chains": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "cause", "effect", "mechanism_chain", "evidence_ids", "alternative_explanations", "counterfactual", "testable_predictions", "confidence_ceiling"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^CM-[0-9]{2}$" },
+          "cause": { "type": "string", "minLength": 1 },
+          "effect": { "type": "string", "minLength": 1 },
+          "mechanism_chain": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 5,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "intermediate_vars": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "default": []
+          },
+          "evidence_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^E-[0-9]{2,}$" }
+          },
+          "alternative_explanations": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "counterfactual": { "type": "string", "minLength": 1 },
+          "testable_predictions": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 3,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "confidence_ceiling": { "enum": ["correlational", "mechanistic", "causal"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "evidence_graph": {
+      "type": "object",
+      "required": ["backbone", "nodes", "edges"],
+      "properties": {
+        "backbone": { "type": "string", "minLength": 1, "description": "主链一句" },
+        "nodes": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^C-[0-9]{2}$" }
+        },
+        "edges": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "assumptions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["id", "statement", "falsification_signals", "affects_claims"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^A-[0-9]{2}$" },
+          "statement": { "type": "string", "minLength": 1 },
+          "falsification_signals": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "affects_claims": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^C-[0-9]{2}$" }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "inference_steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["step", "claim_ids", "logic", "grounds"],
+        "properties": {
+          "step": { "type": "integer", "minimum": 1 },
+          "claim_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^C-[0-9]{2}$" }
+          },
+          "logic": { "type": "string", "minLength": 1 },
+          "grounds": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^(E-[0-9]{2,}|A-[0-9]{2})$" }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

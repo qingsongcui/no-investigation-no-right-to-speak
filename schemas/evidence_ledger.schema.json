@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Evidence Ledger v2.4.0 — 证据台账（JSONL 每行一条，含 search_round）",
+  "type": "object",
+  "required": [
+    "evidence_id", "claim_ids", "source_name", "publisher", "source_url",
+    "published_at", "retrieved_at", "primary_or_secondary", "directness",
+    "source_quality", "independence_group", "publisher_interest",
+    "quotation_or_data", "supports_or_refutes", "limitations", "search_round"
+  ],
+  "properties": {
+    "evidence_id": { "type": "string", "pattern": "^E-[0-9][0-9]+$" },
+    "claim_ids": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^C-[0-9][0-9]+$" } },
+    "source_name": { "type": "string", "minLength": 1, "description": "人读来源名称，如 国家统计局" },
+    "publisher": { "type": "string", "minLength": 1, "description": "发布者身份与立场" },
+    "source_url": { "type": "string", "format": "uri" },
+    "published_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "retrieved_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "primary_or_secondary": { "enum": ["primary", "secondary", "tertiary"], "description": "事实类以事实来源计；前瞻类以推导输入前提来源计" },
+    "directness": { "enum": ["direct", "indirect", "circumstantial"], "description": "事实类为直接证实；前瞻类为直接输入事实/市场成交价/制度原文" },
+    "source_quality": { "type": "number", "minimum": 0, "maximum": 1 },
+    "independence_group": { "type": "string", "minLength": 1, "description": "同母来源/互相转载归一组" },
+    "upstream_source": { "type": "string", "description": "原始母来源，如 NBS，Reuters引用NBS则upstream=NBS" },
+    "evidence_family": { "type": "string", "description": "同一底层观测的家族，如 NBS-GDP-2026H1" },
+    "publisher_interest": { "enum": ["commercial", "government", "advocacy", "academic", "personal", "mixed", "unknown"] },
+    "quotation_or_data": { "type": "string", "minLength": 1, "description": "原文引用或原始数据，禁止改写" },
+    "supports_or_refutes": { "enum": ["supports", "refutes", "neutral_context"] },
+    "limitations": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "search_round": { "type": "integer", "minimum": 1, "description": "检索轮次，首轮为 1，用于预算审计" }
+  }
+}

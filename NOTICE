@@ -1,0 +1,12 @@
+# NOTICE
+
+The code, schemas, templates, workflow documents, tests, and example files in
+this repository are original work by George O'Nair, released under the MIT
+License in `LICENSE`.
+
+Source material cited or snapshotted inside example investigations (for
+example, excerpts of third-party README files used as review fixtures) remains
+the property of its respective owners and is subject to those owners' terms.
+A snapshot stored under an example directory is a frozen review fixture: it
+records exactly what was reviewed, and it is not a redistribution claim over
+the upstream project.

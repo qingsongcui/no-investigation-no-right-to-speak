@@ -1,0 +1,22 @@
+# Private research material: never commit live investigations or source archives.
+investigations/
+reports/
+evidence_collection/
+evidence/
+sources/
+archives/
+backups/
+*.pdf
+*.docx
+*.doc
+# Python caches and local tooling.
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+# Editor and OS noise.
+.DS_Store
+.idea/
+.vscode/
+# Local investigation state.
+.events.jsonl

@@ -1,0 +1,3 @@
+{"schema_version":"2.4","investigation":"demo-province-industry","gaps":[
+{"gap_id":"G-01","requirement_ids":["ER-03"],"claim_ids":["C-03"],"description":"未取得正式规划","critical":false,"attempted_paths":["检索省政府规划库"],"next_feasible_path":"","expected_information_gain":"确认路径","estimated_cost":"超出样例范围","access_mode":"none","status":"publicly_unavailable"}
+]}

@@ -1,0 +1,5 @@
+{"schema_version":"2.4","investigation":"demo-province-industry","overall_status":"PARTIAL_WITH_BOUNDED_CLAIMS","sections":[
+{"question_id":"RQ-01","heading":"增速的成色","authorized_claim_ids":["C-01"],"judgment":"年度增速有官方直接数据","evidence_or_table":"年度公报","mechanism":"统计口径直接测量","strongest_alternative":"年度修订","falsification_signal":"官方修订值变化","source_ids":["S-001"],"dimension_status":"complete"},
+{"question_id":"RQ-02","heading":"接下来","authorized_claim_ids":["C-02"],"judgment":"出口稳定是条件","evidence_or_table":"出口与工业材料","mechanism":"订单到排期到产出","strongest_alternative":"内需拉动","falsification_signal":"出口连续三月负增长","source_ids":["S-001","S-002"],"dimension_status":"complete"},
+{"question_id":"RQ-03","heading":"路径边界","authorized_claim_ids":["C-03"],"judgment":"暂无发言权","evidence_or_table":"正式规划缺失","mechanism":"无直接文件不能判断","strongest_alternative":"媒体推测","falsification_signal":"正式规划发布","source_ids":["S-001"],"dimension_status":"no_standing"}
+]}

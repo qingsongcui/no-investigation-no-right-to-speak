@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Claim Semantic Lexicon v2.5 — 命题语义许可",
+  "type": "object",
+  "required": ["schema_version", "investigation", "generated_at", "lexicon"],
+  "properties": {
+    "schema_version": { "const": "2.5" },
+    "investigation": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "lexicon": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "level", "dimension_status", "identification_level", "allowed_templates", "forbidden_patterns", "same_unit_observation"],
+        "properties": {
+          "claim_id": { "type": "string", "pattern": "^C-[0-9]{2,}$" },
+          "level": { "enum": ["confirmed", "provisional", "hypothesis", "weak_signal", "no_standing"] },
+          "dimension_status": { "enum": ["complete", "bounded", "data_access_required", "no_standing"] },
+          "identification_level": { "enum": ["descriptive", "correlational", "mechanistic", "causal"] },
+          "same_unit_observation": { "type": "boolean" },
+          "allowed_templates": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "forbidden_patterns": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    }
+  }
+}

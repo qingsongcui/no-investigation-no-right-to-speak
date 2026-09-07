@@ -1,0 +1,20 @@
+slug: demo-province-industry
+workflow_version: "2.4"
+state: IDENTIFICATION_GATED
+outcome_status: PARTIAL_WITH_BOUNDED_CLAIMS
+budget:
+  max_search_rounds: 2
+  search_rounds_used: 1
+claims:
+  - claim_id: C-01
+    claim: "2025 年，某省规模以上工业增加值同比增长 6.5%。"
+    claim_type: factual
+    is_critical: true
+  - claim_id: C-02
+    claim: "若出口需求保持当前水平，未来一年该省工业增速将大概率维持在 5% 至 7% 区间。"
+    claim_type: trend
+    is_critical: true
+  - claim_id: C-03
+    claim: "该省未来三年产业升级的具体路径已经明确。"
+    claim_type: factual
+    is_critical: false

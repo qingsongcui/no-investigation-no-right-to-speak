@@ -1,0 +1,19 @@
+{
+  "schema_version": "2.4",
+  "investigation": "<slug>",
+  "gaps": [
+    {
+      "gap_id": "G-01",
+      "requirement_ids": ["ER-01"],
+      "claim_ids": ["C-01"],
+      "description": "<尚缺什么>",
+      "critical": true,
+      "attempted_paths": [],
+      "next_feasible_path": "<下一条可执行路径>",
+      "expected_information_gain": "<将增加什么可观测性>",
+      "estimated_cost": "<轮次/时间/访问成本>",
+      "access_mode": "public",
+      "status": "open"
+    }
+  ]
+}

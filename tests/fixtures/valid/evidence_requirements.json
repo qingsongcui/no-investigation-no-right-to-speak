@@ -1,0 +1,5 @@
+{"schema_version":"2.4","investigation":"demo-province-industry","requirements":[
+{"requirement_id":"ER-01","question_ids":["RQ-01"],"claim_ids":["C-01"],"evidence_type":"numeric","description":"年度增速","critical":true,"minimum_acceptance":"官方公报","status":"met","evidence_ids":["E-01"],"information_gain":{"new_variables":1}},
+{"requirement_id":"ER-02","question_ids":["RQ-02"],"claim_ids":["C-02"],"evidence_type":"mechanism","description":"出口到产出的机制","critical":true,"minimum_acceptance":"官方数值加独立机制材料","status":"met","evidence_ids":["E-01","E-02"],"information_gain":{"new_variables":2}},
+{"requirement_id":"ER-03","question_ids":["RQ-03"],"claim_ids":["C-03"],"evidence_type":"definition","description":"正式产业规划","critical":false,"minimum_acceptance":"正式规划原文","status":"unavailable","evidence_ids":[],"information_gain":{}}
+]}

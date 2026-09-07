@@ -1,0 +1,110 @@
+{
+  "type": "object",
+  "properties": {
+    "reviewer_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Attestation of who performed the review. Not a cryptographic identity proof."
+    },
+    "provenance": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Attestation of the real review execution and scope. Not a proof of reviewer independence."
+    },
+    "input_fingerprint": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "Proves the reviewed files did not change after review. Does not prove the reviewer was independently operated."
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "revise"
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "criterion": {
+            "type": "string",
+            "enum": [
+              "directness",
+              "evidence",
+              "reasoning",
+              "constraints",
+              "readability",
+              "uncertainty"
+            ]
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "revise"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "criterion",
+          "verdict",
+          "reason"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 6
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "blocking",
+              "advisory"
+            ]
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requested_change": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "severity",
+          "quote",
+          "reason",
+          "requested_change"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "reviewer_id",
+    "provenance",
+    "input_fingerprint",
+    "verdict",
+    "checks",
+    "issues"
+  ],
+  "additionalProperties": false,
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "review v3.0"
+}

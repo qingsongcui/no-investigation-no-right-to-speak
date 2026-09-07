@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Synthesized Claim v1 — 多因子权衡的派生分析命题",
+  "type": "object",
+  "required": ["id", "type", "statement", "derived_from", "derivation_type", "confidence", "scope"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^SC-[0-9]{3,}$" },
+    "type": { "const": "synthesized_claim" },
+    "statement": { "type": "string", "minLength": 20 },
+    "derived_from": { "type": "array", "minItems": 2, "items": { "type": "string", "pattern": "^(C-|SC-)[0-9]+|RQ-" } },
+    "derivation_type": { "enum": ["multi_factor_tradeoff", "mechanism", "temporal_trajectory", "user_implication", "alternative_explanation"] },
+    "confidence": { "enum": ["low", "medium", "medium_high", "high"] },
+    "scope": { "type": "string", "minLength": 1 }
+  }
+}

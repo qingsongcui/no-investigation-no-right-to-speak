@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "investigation": "demo-province-industry",
+  "created_at": "2026-08-14",
+  "causal_chains": [
+    {
+      "id": "CM-01",
+      "cause": "出口需求保持当前水平",
+      "effect": "工业增速维持5-7%",
+      "mechanism_chain": ["出口订单稳定", "生产排期饱满", "工业增加值维持"],
+      "intermediate_vars": ["出口订单"],
+      "evidence_ids": ["E-01", "E-02"],
+      "alternative_explanations": ["内需拉动"],
+      "counterfactual": "若无出口支撑，增速仍可能因内需维持吗",
+      "testable_predictions": ["月度出口同比连续3月负增长则证伪"],
+      "confidence_ceiling": "mechanistic"
+    }
+  ],
+  "evidence_graph": {
+    "backbone": "出口需求→工业增速",
+    "nodes": ["C-01", "C-02", "C-03"],
+    "edges": ["CM-01: C-02→C-01"]
+  },
+  "assumptions": [
+    {
+      "id": "A-01",
+      "statement": "出口需求保持当前水平",
+      "falsification_signals": ["月度出口同比连续3月负增长"],
+      "affects_claims": ["C-02"]
+    }
+  ],
+  "inference_steps": [
+    {
+      "step": 1,
+      "claim_ids": ["C-01"],
+      "logic": "官方统计直接证实6.5%",
+      "grounds": ["E-01"]
+    },
+    {
+      "step": 2,
+      "claim_ids": ["C-02"],
+      "logic": "出口不回落则增速维持5-7%",
+      "grounds": ["E-01", "E-02", "A-01"]
+    },
+    {
+      "step": 3,
+      "claim_ids": ["C-03"],
+      "logic": "缺官方规划文件，暂无发言权",
+      "grounds": ["A-01"]
+    }
+  ]
+}

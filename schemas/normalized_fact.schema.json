@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Normalized Fact v1 — 原子事实（Source→Raw→Fact→Claim）",
+  "required": ["fact_id", "evidence_id", "source_id", "fact_type", "metric", "value", "unit", "period", "geography", "raw_passage", "supports_claim_ids", "quality_grade"],
+  "properties": {
+    "fact_id": { "type": "string", "pattern": "^F-[0-9]{3,}$" },
+    "evidence_id": { "type": "string", "pattern": "^E-[0-9]{2,}$" },
+    "source_id": { "type": "string", "pattern": "^S-[0-9]{3,}$" },
+    "fact_type": { "enum": ["NumericFact","CategoricalFact","EventFact","RelationFact","SurveyFact","LegalFact","StudyEffectFact","NegativeFact","UnknownFact"], "description": "事实类型" },
+    "unknown_subtype": { "enum": ["UNKNOWN_NOT_SEARCHED","UNKNOWN_NOT_FOUND","UNKNOWN_NOT_MEASURED","UNKNOWN_ACCESS_BLOCKED","UNKNOWN_CONFLICTING","UNKNOWN_OUT_OF_SCOPE","NOT_APPLICABLE"], "description": "UNKNOWN 认识论细分" },
+    "upstream_source": { "type": "string", "description": "原始母来源，如 NBS-LFS，Reuters引用NBS则upstream=NBS-LFS" },
+    "evidence_family": { "type": "string", "description": "同一底层观测的家族，如 NBS-GDP-2026H1" },
+    "metric": { "type": "string", "minLength": 1, "description": "机器可读指标，如 real_estate_development_investment" },
+    "value": { "type": ["number", "string"], "description": "数值或原文值，UNKNOWN 时写 UNKNOWN" },
+    "unit": { "type": "string", "description": "单位：%, 万人, 万对, bp 等，UNKNOWN 时写 UNKNOWN" },
+    "period": { "type": "string", "description": "观测期，如 2026-01~07 或 2026-07" },
+    "geography": { "type": "string", "description": "地域，如 CN, CN-urban" },
+    "raw_passage": { "type": "string", "minLength": 1, "description": "未改写的原文片段" },
+    "supports_claim_ids": { "type": "array", "items": { "type": "string", "pattern": "^C-[0-9]{2,}$" } },
+    "quality_grade": { "enum": ["A","B+","B","C","D"], "description": "事实质量等级" },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "population": { "type": "string", "description": "StudyFact: 样本人群" },
+    "sample_n": { "type": "integer", "description": "StudyFact: 样本量" },
+    "outcome_type": { "type": "string", "description": "StudyFact: 结果类型，如 self_reported_expectation" },
+    "design": { "type": "string", "description": "StudyFact: 研究设计，如 observational" },
+    "effect_type": { "type": "string", "description": "StudyFact: 效应类型" },
+    "jurisdiction": { "type": "string", "description": "LegalFact: 辖区" },
+    "provision": { "type": "string", "description": "LegalFact: 条款" }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.4",
+  "investigation": "<slug>",
+  "requirements": [
+    {
+      "requirement_id": "ER-01",
+      "question_ids": ["RQ-01"],
+      "claim_ids": ["C-01"],
+      "evidence_type": "numeric",
+      "description": "<需要直接测量的变量或材料>",
+      "critical": true,
+      "minimum_acceptance": "<可机器/人工验收的最低标准>",
+      "status": "open",
+      "evidence_ids": [],
+      "information_gain": {}
+    }
+  ]
+}

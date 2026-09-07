@@ -1,0 +1,404 @@
+{
+  "type": "object",
+  "properties": {
+    "workflow_version": {
+      "type": "string",
+      "enum": [
+        "3.0"
+      ]
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "answer",
+        "reviewed"
+      ]
+    },
+    "purpose": {
+      "type": "string",
+      "enum": [
+        "live",
+        "historical_example"
+      ]
+    },
+    "stakes": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "causal": {
+      "type": "boolean"
+    },
+    "author_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "string"
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "answer": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "answered",
+              "bounded",
+              "unknown"
+            ]
+          },
+          "finding_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "report_excerpt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "text",
+          "answer",
+          "status",
+          "finding_ids",
+          "report_excerpt"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "minLength": 1
+          },
+          "accessed_at": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_kind": {
+            "type": "string",
+            "enum": [
+              "primary",
+              "secondary",
+              "user_provided"
+            ]
+          },
+          "evidence_locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "limitation": {
+            "type": "string"
+          },
+          "snapshot_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "snapshot_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "url",
+          "accessed_at",
+          "evidence_text",
+          "source_kind",
+          "evidence_locator",
+          "limitation"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "fact",
+              "inference",
+              "recommendation",
+              "causal",
+              "unknown"
+            ]
+          },
+          "question_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "premises": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "limitation": {
+            "type": "string"
+          },
+          "report_excerpt": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "text",
+          "kind",
+          "question_ids",
+          "source_ids",
+          "premises",
+          "limitation",
+          "report_excerpt"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "issue": {
+            "type": "string",
+            "minLength": 1
+          },
+          "question_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "critical": {
+            "type": "boolean"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "resolved",
+              "bounded",
+              "access_required"
+            ]
+          },
+          "resolution": {
+            "type": "string"
+          },
+          "next_path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "issue",
+          "question_ids",
+          "critical",
+          "status",
+          "resolution",
+          "next_path"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "searches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "uniqueItems": true
+          },
+          "gain": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "query",
+          "purpose",
+          "source_ids",
+          "gain"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "stop": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "type": "string",
+          "enum": [
+            "",
+            "answered",
+            "bounded",
+            "access_required",
+            "budget_exhausted"
+          ]
+        },
+        "explanation": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason",
+        "explanation"
+      ],
+      "additionalProperties": false
+    },
+    "causal_design": {
+      "type": "object",
+      "properties": {
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exposure": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1
+        },
+        "strategy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confounders": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limitations": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "unit",
+        "exposure",
+        "outcome",
+        "strategy",
+        "confounders",
+        "limitations"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "workflow_version",
+    "mode",
+    "purpose",
+    "stakes",
+    "causal",
+    "author_id",
+    "question",
+    "scope",
+    "constraints",
+    "questions",
+    "sources",
+    "findings",
+    "gaps",
+    "searches",
+    "stop"
+  ],
+  "additionalProperties": false,
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "research v3.0"
+}

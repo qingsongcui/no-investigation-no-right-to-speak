@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Claim Authorization v2.4.0 — 证据与识别双门禁产出",
+  "type": "object",
+  "required": ["schema_version", "investigation", "gate_date", "claims"],
+  "properties": {
+    "schema_version": { "const": "2.4" },
+    "investigation": { "type": "string", "minLength": 1 },
+    "gate_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "claim", "claim_type", "is_critical", "scores",
+                     "bias_penalties", "total", "raw_score_level", "level",
+                     "evidence_level", "identification_level", "dimension_status",
+                     "unresolved_requirements", "same_unit_observation",
+                     "allowed_wording", "evidence_ids"],
+        "properties": {
+          "claim_id": { "type": "string", "pattern": "^C-[0-9][0-9]+$" },
+          "claim": { "type": "string", "minLength": 1, "not": { "pattern": "[|]" } },
+          "claim_type": { "enum": ["factual", "causal", "predictive", "trend", "strategic", "normative"] },
+          "is_critical": { "type": "boolean" },
+          "scores": {
+            "type": "object",
+            "required": ["Q", "D", "I", "C", "R", "X", "P"],
+            "additionalProperties": false,
+            "properties": {
+              "Q": { "type": "number", "minimum": 0, "maximum": 100 },
+              "D": { "type": "number", "minimum": 0, "maximum": 100 },
+              "I": { "type": "number", "minimum": 0, "maximum": 100 },
+              "C": { "type": "number", "minimum": 0, "maximum": 100 },
+              "R": { "type": "number", "minimum": 0, "maximum": 100 },
+              "X": { "type": "number", "minimum": 0, "maximum": 100 },
+              "P": { "type": "number", "minimum": 0, "maximum": 100 }
+            }
+          },
+          "penalties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["reason", "points"],
+              "properties": {
+                "reason": { "type": "string", "minLength": 1 },
+                "points": { "type": "number", "minimum": 0 }
+              }
+            }
+          },
+          "bias_penalties": {
+            "type": "object",
+            "required": ["interest_bias", "search_ecology_bias"],
+            "additionalProperties": false,
+            "properties": {
+              "interest_bias": { "type": "number", "minimum": 0, "maximum": 15 },
+              "search_ecology_bias": { "type": "number", "minimum": 0, "maximum": 15 }
+            }
+          },
+          "total": { "type": "number", "minimum": 0, "maximum": 100 },
+          "raw_score_level": { "enum": ["confirmed", "provisional", "hypothesis", "weak_signal", "no_standing"] },
+          "level": { "enum": ["confirmed", "provisional", "hypothesis", "weak_signal", "no_standing"] },
+          "evidence_level": { "enum": ["confirmed", "provisional", "hypothesis", "weak_signal", "no_standing"] },
+          "identification_level": { "enum": ["descriptive", "correlational", "mechanistic", "causal"] },
+          "dimension_status": { "enum": ["complete", "bounded", "data_access_required", "no_standing"] },
+          "unresolved_requirements": { "type": "array", "items": { "type": "string", "pattern": "^ER-[0-9]{2,}$" } },
+          "same_unit_observation": { "type": "boolean" },
+          "allowed_wording": { "type": "string", "minLength": 1 },
+          "blocking_issues": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "evidence_ids": { "type": "array", "items": { "type": "string", "pattern": "^E-[0-9][0-9]+$" } },
+          "premises": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "falsification_signals": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "counterpoints": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "counterpoint_resolutions": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{"schema_version":"2.4","investigation":"demo-province-industry","claims":[
+{"report_claim":"2025年工业增加值同比增长6.5%","source_ids":["S-001"],"evidence_ids":["E-01"],"locator":"报告增速章节首段","contains_numeric_claim":true},
+{"report_claim":"出口稳定时增速可能维持","source_ids":["S-001","S-002"],"evidence_ids":["E-01","E-02"],"locator":"报告前瞻章节首段","contains_numeric_claim":true}
+]}
