@@ -1,5 +1,7 @@
 # Evidence-First Research
 
+[![verify](https://github.com/qingsongcui/evidence-first-research/actions/workflows/verify.yml/badge.svg)](https://github.com/qingsongcui/evidence-first-research/actions/workflows/verify.yml)
+
 Evidence-first research workflow and validation toolkit for AI agents.
 
 This repository gives an AI agent a disciplined way to answer questions with
