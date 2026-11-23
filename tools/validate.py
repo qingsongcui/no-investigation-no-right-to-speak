@@ -931,7 +931,7 @@ def speak(root, report_file="final_report.md"):
         res.err("交付版不应包含“从暂无发言权到可行动”章节（审计信息已沉底）")
     if "流程说明" in body:
         res.err("交付版不应包含流程说明章节（审计信息已沉底）")
-    if REF_MARK not in body:
+    if not natural and REF_MARK not in body:
         res.err("缺少参考资料章节")
     depth = _brief_depth((root / "research_brief.yaml").read_text(encoding="utf-8"))         if (root / "research_brief.yaml").exists() else "standard"
     if not natural and depth != "quick":
@@ -969,7 +969,7 @@ def speak(root, report_file="final_report.md"):
     if "覆盖与不确定" in body or "Coverage and uncertainty" in body:
         res.err("交付版不应包含覆盖与不确定章节（已沉底到内部审计）")
     pre_appendix_raw = body.split(APPENDIX_MARK, 1)[0] if APPENDIX_MARK in body else body
-    if re.search(r"^##\s*Sources|^##\s*References", pre_appendix_raw, re.M):
+    if not natural and re.search(r"^##\s*Sources|^##\s*References", pre_appendix_raw, re.M):
         res.err("正文（对照表前）出现 ## Sources/References 标题（该节由参考资料统一承载）")
     # 5) 禁止逐源复述：检测 甲说乙说丙称 的堆砌
     if re.search(r"(称|表示|指出|认为).{0,20}(称|表示|指出|认为).{0,20}(称|表示|指出|认为)", pre_appendix_raw):
@@ -977,7 +977,7 @@ def speak(root, report_file="final_report.md"):
     # 6) 紧凑表纪律：若正文含多个同类数值但无表，给提示
     has_table_before_appendix = bool(re.search(r"^\|.*\|", pre_appendix_raw, re.M))
     numeric_hits = len(re.findall(r"\d+\.?\d*\s*%|\d{4}年|\d+月|\d+\s*美元|\d+\s*bp", pre_appendix_raw))
-    if numeric_hits >= 6 and not has_table_before_appendix:
+    if not natural and numeric_hits >= 6 and not has_table_before_appendix:
         res.warn("正文含较多数值（≥6 处）但未见紧凑表，建议将按日/按月系列收进一张表")
     rows = []
     in_table = False
@@ -1054,14 +1054,14 @@ def speak(root, report_file="final_report.md"):
         # 向后兼容：旧调查未生成 lexicon 仅警告，不阻断
         res.warn("缺失 claim_semantic_lexicon.json（v2.5 起 Writer 硬约束所需，旧调查可忽略）")
     seen_urls = set()
-    ref_text = body.split(REF_MARK, 1)[1] if REF_MARK in body else ""
+    ref_text = body if natural else body.partition(REF_MARK)[2]
     for m in URL_EXTRACT_RE.finditer(ref_text):
         url = m.group(0).rstrip("。，、；：)）]】〉》-")
-        if url in seen_urls:
+        if not natural and url in seen_urls:
             res.err("参考资料出现重复来源链接: " + url)
         seen_urls.add(url)
     if not seen_urls:
-        res.err("参考资料部分未找到任何链接")
+        res.err("报告中未找到来源链接" if natural else "参考资料部分未找到任何链接")
     manifest_urls = {row.get("canonical_url") for row in manifest_rows}
     for url in seen_urls:
         if url not in manifest_urls:

@@ -4,7 +4,9 @@
     "workflow_version": {
       "type": "string",
       "enum": [
-        "3.0"
+        "3.0",
+        "3.1",
+        "3.2"
       ]
     },
     "mode": {
@@ -126,18 +128,6 @@
             "type": "string",
             "minLength": 1
           },
-          "source_kind": {
-            "type": "string",
-            "enum": [
-              "primary",
-              "secondary",
-              "user_provided"
-            ]
-          },
-          "evidence_locator": {
-            "type": "string",
-            "minLength": 1
-          },
           "limitation": {
             "type": "string"
           },
@@ -156,8 +146,6 @@
           "url",
           "accessed_at",
           "evidence_text",
-          "source_kind",
-          "evidence_locator",
           "limitation"
         ],
         "additionalProperties": false
@@ -216,8 +204,7 @@
             "type": "string"
           },
           "report_excerpt": {
-            "type": "string",
-            "minLength": 1
+            "type": "string"
           }
         },
         "required": [
@@ -233,6 +220,97 @@
         "additionalProperties": false
       },
       "minItems": 0
+    },
+    "probes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "question_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "initial": {
+            "type": "string",
+            "minLength": 1
+          },
+          "alternative": {
+            "type": "string",
+            "minLength": 1
+          },
+          "test": {
+            "type": "string",
+            "minLength": 1
+          },
+          "next_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "properties": {
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "retained",
+                  "revised",
+                  "bounded"
+                ]
+              },
+              "observation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "impact": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "finding_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "gap_issue": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "outcome",
+              "observation",
+              "impact",
+              "source_ids",
+              "finding_ids"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "question_id",
+          "initial",
+          "alternative",
+          "test",
+          "next_path"
+        ],
+        "additionalProperties": false
+      }
     },
     "gaps": {
       "type": "array",
@@ -288,6 +366,10 @@
         "type": "object",
         "properties": {
           "query": {
+            "type": "string",
+            "minLength": 1
+          },
+          "probe_id": {
             "type": "string",
             "minLength": 1
           },
@@ -400,5 +482,5 @@
   ],
   "additionalProperties": false,
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "research v3.0"
+  "title": "research v3.0 / v3.1 / v3.2"
 }
