@@ -25,9 +25,11 @@ with its own runtime tools and records what it actually did.
 - Distinguish facts from inferences in `findings.kind`. Inferences name their
   `premises`; unknowns carry an explanation in `limitation`, never silent
   certainty or silent dismissal.
-- Every source behind a `fact` or `causal` finding in `reviewed` mode needs
-  `source_kind`, an `evidence_locator`, and a SHA-256-verified snapshot inside
-  the investigation directory.
+- Every source behind a `fact` or `causal` finding in `reviewed` mode should
+  keep a SHA-256-verified snapshot inside the investigation directory, and may
+  carry `source_kind` and an `evidence_locator`. Since v3.2 these fields are
+  optional; the critical probe is the primary device tying a judgment to the
+  evidence that would change it.
 - Route high-stakes or causal work to `reviewed` (see the skill for the
   decision list) and record the routing reason in the investigation scope.
   General explanations stay on `answer`; do not inflate routine questions into

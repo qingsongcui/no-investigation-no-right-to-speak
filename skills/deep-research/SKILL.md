@@ -84,10 +84,12 @@ did not ask for.
 ways. Visa thresholds do not imply employment probabilities; two correlated
 indicators do not imply a single cause.
 
-In `reviewed` mode, every source behind a `fact` or `causal` finding needs
-`source_kind` (`primary`, `secondary`, or `user_provided`), an
-`evidence_locator` (heading, paragraph range, page range, or table label),
-and a SHA-256-verified snapshot stored inside the investigation directory.
+In `reviewed` mode, a source behind a `fact` or `causal` finding may carry
+`source_kind` (`primary`, `secondary`, or `user_provided`) and an
+`evidence_locator` (heading, paragraph range, page range, or table label), and
+should keep a SHA-256-verified snapshot inside the investigation directory.
+Since v3.2 these fields are optional — the critical probe (below) is the primary
+device for tying a judgment to the evidence that would change it.
 
 ### Write down up front what evidence would change your mind
 
