@@ -2,6 +2,8 @@
 
 [![verify](https://github.com/qingsongcui/evidence-first-research/actions/workflows/verify.yml/badge.svg)](https://github.com/qingsongcui/evidence-first-research/actions/workflows/verify.yml)
 
+**English** · [简体中文](README.zh-CN.md)
+
 Evidence-first research workflow and validation toolkit for AI agents.
 
 This repository gives an AI agent a disciplined way to answer questions with
@@ -22,6 +24,17 @@ still matches the reviewed files.
 Normal questions stay on `answer`. `audited` is a more demanding optional
 compatibility path, not the recommended default. High-stakes or causal work
 must not be downgraded to `answer`: the validator rejects it.
+
+## What guides an investigation
+
+The agent forms a refutable explanation first, then investigates the open point
+that would change the answer most — not a fixed set of claims to backfill.
+New `reviewed` runs and `--deep` explanations record a **critical probe** in
+`research.json`: the tentative judgment, the strongest competing explanation,
+and the observation that would separate them. When a question turns on who pays,
+executes, or bears the consequences, the agent follows the interest
+relationships along one concrete order, shift, or dispute. See
+`skills/deep-research/SKILL.md` for the full method.
 
 ## Five-minute verification
 

@@ -1,4 +1,6 @@
-# Agent Instructions — evidence-first research v0.1.0
+# Agent Instructions — evidence-first research v0.2.0
+
+[English](AGENTS.md) · [简体中文](AGENTS.zh-CN.md)
 
 ## Purpose and entry point
 
@@ -30,6 +32,14 @@ with its own runtime tools and records what it actually did.
   decision list) and record the routing reason in the investigation scope.
   General explanations stay on `answer`; do not inflate routine questions into
   audit bureaucracy.
+- Form a refutable explanation first, then investigate the open point that
+  would change the answer most. New `reviewed` runs and `--deep` explanations
+  record a critical probe: the tentative judgment, the strongest competing
+  explanation, and the observation that separates them. When a question turns on
+  who pays, executes, or bears the consequences, follow the interest
+  relationships along one concrete event, tracking who gains what, who bears
+  what, and who decides — and watch for internal divergence, absent parties, and
+  stage changes.
 
 ## Acceptance and delivery
 

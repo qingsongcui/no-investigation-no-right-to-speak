@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.2.0 — Critical probes and interest-relationship investigation (2026-11-23)
+
+Ports the v3.1/v3.2 method additions from the internal Chinese line into the
+public toolkit. Adds bilingual documentation (English primary, Simplified
+Chinese switchable).
+
+- Critical probes: new live `reviewed` runs and `--deep` explanations record an
+  up-front probe in `research.json` — tentative judgment, strongest competing
+  explanation, and the observation that separates them — bound to real evidence
+  and the final judgment. `research.py next` surfaces unfinished probes and
+  fillable gaps before drafting.
+- `research.py`: add `needs_probe` / `next_steps` / `validate_probes` and the
+  `--deep` flag; `next` reads the next step from probes and gaps.
+- `validate.py`: natural presentation mode skips the legacy Sources/References
+  format checks while keeping citation and provenance checks.
+- Interest-relationship investigation: when an answer turns on who pays,
+  executes, or bears the consequences, follow one concrete order, shift, or
+  dispute — tracking internal divergence, absent parties, and stage changes.
+- Bilingual docs: `README.zh-CN.md` and `AGENTS.zh-CN.md` with cross-links;
+  English remains primary.
+- Tests: 74/74 OK.
+
 ## 0.1.0 — Public release (2026-09-07)
 
 First public release of the evidence-first research workflow and validation
