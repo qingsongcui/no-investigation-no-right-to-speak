@@ -1,4 +1,4 @@
-# Evidence-First Research（没有调查，就没有发言权）
+# 没有调查，就没有发言权（No Investigation, No Right to Speak）
 
 [English](README.md) · **简体中文**
 

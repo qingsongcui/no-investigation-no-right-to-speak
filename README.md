@@ -1,6 +1,6 @@
-# Evidence-First Research
+# No Investigation, No Right to Speak
 
-[![verify](https://github.com/qingsongcui/evidence-first-research/actions/workflows/verify.yml/badge.svg)](https://github.com/qingsongcui/evidence-first-research/actions/workflows/verify.yml)
+[![verify](https://github.com/qingsongcui/no-investigation-no-right-to-speak/actions/workflows/verify.yml/badge.svg)](https://github.com/qingsongcui/no-investigation-no-right-to-speak/actions/workflows/verify.yml)
 
 **English** · [简体中文](README.zh-CN.md)
 
