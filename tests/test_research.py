@@ -100,6 +100,7 @@ class ResearchTests(unittest.TestCase):
         self.assertTrue(self.errors())
     def test_final_requires_scope(self):
         self.data['scope']='';self.assertTrue(self.errors())
+    @unittest.skipUnless(importlib.util.find_spec('docx') is not None,'python-docx not installed')
     def test_export_blocks_stale_review_before_writing(self):
         from tools.export_pdf import export_single_report
         self.reviewed()
@@ -313,6 +314,7 @@ class CompatibilityTests(unittest.TestCase):
             r=subprocess.run([sys.executable,str(REPO/'tools/validate.py'),'speak',str(p)],capture_output=True,text=True);self.assertEqual(r.returncode,0,r.stdout+r.stderr)
             (p/'source_manifest.jsonl').unlink()
             r=subprocess.run([sys.executable,str(REPO/'tools/validate.py'),'speak',str(p)],capture_output=True,text=True);self.assertNotEqual(r.returncode,0)
+    @unittest.skipUnless(importlib.util.find_spec('docx') is not None,'python-docx not installed')
     def test_plain_export_preserves_links_without_branding(self):
         from tools.export_pdf import render_plain_docx,parse_markdown
         import zipfile

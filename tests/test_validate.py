@@ -5,6 +5,7 @@
 或
   python3 -m unittest tests.test_validate
 """
+import importlib.util
 import json
 import shutil
 import subprocess
@@ -514,6 +515,7 @@ class ExportEngineTests(unittest.TestCase):
     def tearDown(self):
         self._tmp.cleanup()
 
+    @unittest.skipUnless(importlib.util.find_spec('docx') is not None,'python-docx not installed')
     def test_detect_best_style(self):
         import importlib.util
         spec = importlib.util.spec_from_file_location("export_pdf", REPO / "tools" / "export_pdf.py")
@@ -528,6 +530,7 @@ class ExportEngineTests(unittest.TestCase):
         brief_path.write_text(brief_path.read_text(encoding="utf-8") + "\nmacro-finance 资产配置 利率 美债\n", encoding="utf-8")
         self.assertEqual(export_mod.detect_best_style(self.dir), "bridgewater")
 
+    @unittest.skipUnless(importlib.util.find_spec('docx') is not None,'python-docx not installed')
     def test_resolve_status_label(self):
         import importlib.util
         spec = importlib.util.spec_from_file_location("export_pdf", REPO / "tools" / "export_pdf.py")
@@ -547,6 +550,7 @@ class ExportEngineTests(unittest.TestCase):
         label = export_mod.resolve_status_label(self.dir)
         self.assertEqual(label, "Descriptive – Evidence Bounded")
 
+    @unittest.skipUnless(importlib.util.find_spec('docx') is not None,'python-docx not installed')
     def test_render_docx_both_styles(self):
         import importlib.util
         spec = importlib.util.spec_from_file_location("export_pdf", REPO / "tools" / "export_pdf.py")
