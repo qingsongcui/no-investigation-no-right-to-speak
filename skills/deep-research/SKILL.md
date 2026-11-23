@@ -1,7 +1,7 @@
 ---
 name: deep-research
 description: Investigate a user question with recorded evidence and answer it directly; high-stakes decisions get independent review, formal audit keeps a double-gate path.
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Deep Research
@@ -35,12 +35,21 @@ New task:
 ```bash
 python3 tools/research.py init <dir> --question '<user question>' --author-id '<operator id>'
 # High-stakes work adds --stakes high; planned causal conclusions add --causal
+# A general explanation that needs probing competing explanations adds --deep
+python3 tools/research.py next <dir>
 ```
 
 This creates only `research.json`. Fill in `scope`, `constraints`, and
 `questions`; the number of questions follows actual confusion, never a
 mechanical split of a long question into dozens of claims. `init` performs no
 search and calls no model.
+
+First work out whether the reader wants to confirm a fact, understand something,
+or make a choice. These can appear in one question. Start from the point that
+would change the answer most; once you reach a primary record you may drop a
+branch that lost its meaning or add a question you did not anticipate at intake.
+Keep the user's original question, and record any important pivot in one line of
+`scope` or `searches.gain`.
 
 ## 2. Investigate: answer one real open point per round
 
@@ -80,10 +89,86 @@ In `reviewed` mode, every source behind a `fact` or `causal` finding needs
 `evidence_locator` (heading, paragraph range, page range, or table label),
 and a SHA-256-verified snapshot stored inside the investigation directory.
 
+### Write down up front what evidence would change your mind
+
+New live `reviewed` investigations, and any investigation opened with
+`--deep`, first pick one open point in the same `research.json` that could
+change the answer and record it under `probes`. A general explanation that only
+later hits a dispute may add one too; plain fact checks confirm directly. Each
+probe maps to an existing sub-question; the count follows the important open
+points, not a quota.
+
+- Write the tentative `initial` judgment and the strongest competing
+  explanation or opposite action `alternative`. Put the observable difference
+  that separates them in `test`, and an executable next step in `next_path`
+  (open a named contract, find a set of comparable orders). You may redirect a
+  probe after a first look; keep the reason for the turn in the record.
+- When you actually search or open an original, log the real access in
+  `searches` and link the probe by `probe_id`. Asked whether a market works,
+  macro data first settles whether the category exists, then look at buyers'
+  substitutes, who bears the cost, and under what condition a real switch or
+  repeat payment becomes visible. Investigate the probe and the counterexample
+  on the same comparison basis; prioritize the material that best separates the
+  explanations.
+- After a result, write the actual observation and its effect on the answer in
+  `result`. `retained` means the original judgment survived the probe;
+  `revised` means the judgment or its conditions changed. Both link to this
+  round's source and the body finding on the same question. If key material is
+  genuinely blocked by access, availability, or budget, use `bounded`, link the
+  key gap on the same question, and record the real attempt, the evidence path
+  left open, and the limited conclusion that can still be delivered.
+
+For example, rising online sales may come from new customers willing to reorder
+at full price, or from existing customers stockpiling during a promotion. The
+deciding evidence is the same buyers paying again at full price after expected
+depletion, real refunds, and settled bills. Industry size and restock intent in
+reviews each help, but support a narrower range of conclusions than order
+records. Without buyer back-office access, narrow the recommendation to a
+loss-bounded trial or continued evidence-gathering. A worked example can show
+whether a different contract, fee, or payout timing would change the advice,
+with its assumptions stated.
+
+### When to follow the interest relationships
+
+Would the answer change if told by the person who pays, executes, or bears the
+consequences? If so, follow one order, one shift schedule, or one dispute. The
+party most worth finding first is often the one who knows the matter yet is
+absent from the current material. Ask about a single rate and you check the
+terms; ask who a fee ultimately favors and you look at who can exit, how money
+actually settles, and whether other explanations exist.
+
+Different leads take different routes. From an opposing account, have both sides
+reconstruct the same event, then find the books or handling records; from a
+transaction, follow the money to whoever sets the rules and bears the loss.
+Watch who within the same group has different conditions, and on which matters
+the same parties cooperate or diverge. Compare which contradiction constrains the
+others only when the ranking changes the answer.
+
+Terms support the agreement; a party's account supports how they narrate it; a
+bill supports an actual settlement. Inferring motive or outcome needs separate
+evidence of action, and attention to procedural, technical, and other
+explanations. Write outcome-changing relationships directly into the existing
+findings and their support; when a new fact changes your view, record the reason
+in the investigation log.
+
 ## 3. Stop or keep digging
 
 Ask: are the user's questions answered or explicitly left unknown? What missing
 piece would change the recommendation? Is there a workable source for it?
+
+Each time you gain substantive evidence, prepare to write, or resume an
+interrupted run, `research.py next <dir>` reads the next step. It surfaces
+unfinished critical probes and fillable gaps first. `draft` means you may
+organize current material, still to be checked against the body and review. If
+an executable follow-up exists, do it before stopping; when it can no longer be
+filled, deliver with a stated boundary.
+
+For a question that drives a decision, check whether the last key
+recommendation follows from this question's own evidence. Try to overturn it
+with the strongest available counterexample. If the current material also
+supports the opposite action, look for evidence that separates the two action
+conditions, or deliver a judgment with the split conditions stated (e.g., demand
+holds, but stocking up should still wait under current acquisition conditions).
 
 - Workable and important next step exists: keep digging.
 - Key data unobtainable or costlier than authorized: write the attempted
